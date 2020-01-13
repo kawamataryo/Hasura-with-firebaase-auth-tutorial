@@ -16,10 +16,7 @@ const client = new ApolloClient({
 
 // ログイン処理
 export async function onLogin(token: string) {
-  if (
-    typeof localStorage !== "undefined" &&
-    localStorage.getItem(AUTH_TOKEN) !== token
-  ) {
+  if (localStorage.getItem(AUTH_TOKEN) !== token) {
     localStorage.setItem(AUTH_TOKEN, token);
   }
   try {
