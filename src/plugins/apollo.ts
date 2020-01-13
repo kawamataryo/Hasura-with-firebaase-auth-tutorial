@@ -16,18 +16,19 @@ const client = new ApolloClient({
 
 // ログイン処理
 export async function onLogin(token: string) {
-  // 「Invariant Violation: Store reset while query was in flight (not completed in link chain)」
-  // の解消
-  if (localStorage.getItem(AUTH_TOKEN) === token) {
-    return;
+  if (
+    typeof localStorage !== "undefined" &&
+    localStorage.getItem(AUTH_TOKEN) !== token
+  ) {
+    localStorage.setItem(AUTH_TOKEN, token);
   }
-  localStorage.setItem(AUTH_TOKEN, token);
   try {
+    // 「Invariant Violation: Store reset while query was in flight (not completed in link chain)」
+    // の解消のためのclient.queryManager.stop()。効果は定かではない..
     client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
+    console.error(`Login Failed. ${e}`);
   }
 }
 
@@ -40,8 +41,7 @@ export async function onLogout() {
     client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
+    console.error(`Logout Failed. ${e}`);
   }
 }
 
