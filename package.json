@@ -10,6 +10,7 @@
   "dependencies": {
     "apollo-boost": "^0.4.7",
     "firebase": "^7.6.2",
+    "firebaseui": "^4.4.0",
     "graphql": "^14.5.8",
     "vue": "^2.6.10",
     "vue-apollo": "^3.0.2",
