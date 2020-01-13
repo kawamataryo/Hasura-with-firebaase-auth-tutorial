@@ -6,11 +6,7 @@
       <v-btn outlined v-if="isLogin" @click="logout">Logout</v-btn>
     </v-app-bar>
     <v-content>
-      <v-container>
-        <div id="nav">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/login">Login</router-link>
-        </div>
+      <v-container id="container">
         <router-view />
       </v-container>
     </v-content>
@@ -38,3 +34,9 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style>
+#container {
+  max-width: 550px;
+}
+</style>
