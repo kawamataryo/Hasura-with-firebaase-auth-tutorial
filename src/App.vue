@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar color="black" dark app>
-      <v-toolbar-title>TODO App</v-toolbar-title>
+      <v-toolbar-title>Memo App</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn outlined v-if="isLogin" @click="logout">Logout</v-btn>
     </v-app-bar>

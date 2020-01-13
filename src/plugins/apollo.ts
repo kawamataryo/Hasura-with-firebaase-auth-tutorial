@@ -23,6 +23,7 @@ export async function onLogin(token: string) {
   }
   localStorage.setItem(AUTH_TOKEN, token);
   try {
+    client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -36,6 +37,7 @@ export async function onLogout() {
     localStorage.removeItem(AUTH_TOKEN);
   }
   try {
+    client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
     // eslint-disable-next-line no-console

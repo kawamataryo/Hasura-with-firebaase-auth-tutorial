@@ -1,11 +1,11 @@
 import { gql } from "apollo-boost";
 
-export const FETCH_TASKS = gql`
-  query fetchTasks {
-    todos(order_by: { created_at: asc }) {
+export const FETCH_MEMOS = gql`
+  query fetchMemos {
+    memos(order_by: { created_at: asc }) {
       id
-      name
-      completed
+      content
+      created_at
     }
   }
 `;
