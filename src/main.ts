@@ -34,6 +34,7 @@ auth.onAuthStateChanged(async user => {
       // Tokenのリフレッシュを検知するためにコールバックを設定する
       const userRef = db.collection("user_meta").doc(user.uid);
       userRef.onSnapshot(async () => {
+        const token = await user.getIdToken(true);
         await onLogin(token);
       });
     }
