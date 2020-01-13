@@ -1,8 +1,9 @@
 import ApolloClient from "apollo-boost";
+import VueApollo from "vue-apollo";
 
 const AUTH_TOKEN = "hasura-auth-token";
 
-export const client = new ApolloClient({
+const client = new ApolloClient({
   uri: process.env.VUE_APP_GRPHQL_HTTP,
   request: operation => {
     operation.setContext({
@@ -14,7 +15,7 @@ export const client = new ApolloClient({
 });
 
 // ログイン処理
-export async function onLogin(client: ApolloClient<any>, token: string) {
+export async function onLogin(token: string) {
   // 「Invariant Violation: Store reset while query was in flight (not completed in link chain)」
   // の解消
   if (localStorage.getItem(AUTH_TOKEN) === token) {
@@ -30,7 +31,7 @@ export async function onLogin(client: ApolloClient<any>, token: string) {
 }
 
 // ログアウト処理
-export async function onLogout(client: ApolloClient<any>) {
+export async function onLogout() {
   if (typeof localStorage !== "undefined") {
     localStorage.removeItem(AUTH_TOKEN);
   }
@@ -41,3 +42,7 @@ export async function onLogout(client: ApolloClient<any>) {
     console.log(e);
   }
 }
+
+export const apolloProvider = new VueApollo({
+  defaultClient: client
+});

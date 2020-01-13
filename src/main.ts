@@ -2,14 +2,11 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import { client, onLogin, onLogout } from "@/plugins/apollo";
+import { apolloProvider, onLogin, onLogout } from "@/plugins/apollo";
 import VueApollo from "vue-apollo";
 import { auth, db } from "@/plugins/firebase";
 
 const HASURA_TOKEN_KEY = "https://hasura.io/jwt/claims";
-const apolloProvider = new VueApollo({
-  defaultClient: client
-});
 
 Vue.use(VueApollo);
 
@@ -32,15 +29,15 @@ auth.onAuthStateChanged(async user => {
     const hasuraClaims = idTokenResult.claims[HASURA_TOKEN_KEY];
 
     if (hasuraClaims) {
-      await onLogin(client, token);
+      await onLogin(token);
     } else {
       // Tokenのリフレッシュを検知するためにコールバックを設定する
       const userRef = db.collection("user_meta").doc(user.uid);
       userRef.onSnapshot(async () => {
-        await onLogin(client, token);
+        await onLogin(token);
       });
     }
   } else {
-    await onLogout(client);
+    await onLogout();
   }
 });

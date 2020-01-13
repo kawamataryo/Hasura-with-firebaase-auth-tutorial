@@ -3,7 +3,7 @@
     <v-app-bar color="black" dark app>
       <v-toolbar-title>TODO App</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn outlined v-if="isLogin">Logout</v-btn>
+      <v-btn outlined v-if="isLogin" @click="logout">Logout</v-btn>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -25,8 +25,10 @@ import { onLogout } from "@/plugins/apollo";
 export default Vue.extend({
   name: "App",
   methods: {
-    logout() {
-      onLogout();
+    async logout() {
+      await auth.signOut();
+      await onLogout();
+      await this.$router.push("login");
     }
   },
   computed: {
