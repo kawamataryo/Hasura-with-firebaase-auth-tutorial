@@ -4,8 +4,7 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { client, onLogin, onLogout } from "@/plugins/apollo";
 import VueApollo from "vue-apollo";
-import firebase from "firebase";
-import { db } from "@/plugins/firebase";
+import { auth, db } from "@/plugins/firebase";
 
 const HASURA_TOKEN_KEY = "https://hasura.io/jwt/claims";
 const apolloProvider = new VueApollo({
@@ -18,7 +17,7 @@ Vue.config.productionTip = false;
 
 let vue: Vue;
 // firebaseの初期化が終わったあとにVueを初期化するようにする
-firebase.auth().onAuthStateChanged(async user => {
+auth.onAuthStateChanged(async user => {
   if (!vue) {
     new Vue({
       vuetify,
