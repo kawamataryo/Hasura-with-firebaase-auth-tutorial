@@ -20,9 +20,6 @@ export async function onLogin(token: string) {
     localStorage.setItem(AUTH_TOKEN, token);
   }
   try {
-    // 「Invariant Violation: Store reset while query was in flight (not completed in link chain)」
-    // の解消のためのclient.queryManager.stop()。効果は定かではない..
-    client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
     // eslint-disable-next-line
@@ -36,7 +33,6 @@ export async function onLogout() {
     localStorage.removeItem(AUTH_TOKEN);
   }
   try {
-    client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
     // eslint-disable-next-line
