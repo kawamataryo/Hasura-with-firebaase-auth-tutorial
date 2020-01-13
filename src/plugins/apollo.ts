@@ -28,6 +28,7 @@ export async function onLogin(token: string) {
     client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
+    // eslint-disable-next-line
     console.error(`Login Failed. ${e}`);
   }
 }
@@ -41,6 +42,7 @@ export async function onLogout() {
     client.queryManager.stop();
     await client.resetStore();
   } catch (e) {
+    // eslint-disable-next-line
     console.error(`Logout Failed. ${e}`);
   }
 }

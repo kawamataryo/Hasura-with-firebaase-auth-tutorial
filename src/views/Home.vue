@@ -12,7 +12,7 @@
           {{ memo.content }}
         </v-card-text>
         <v-card-actions>
-          <v-spacer/>
+          <v-spacer />
           <v-icon @click="deleteMemo(memo.id)">mdi-delete</v-icon>
         </v-card-actions>
       </v-card>
