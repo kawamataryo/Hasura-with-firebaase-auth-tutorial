@@ -5,27 +5,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script>
 import { auth } from "@/plugins/firebase";
 import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 
-export default Vue.extend({
+export default {
   name: "login",
-  mounted() {
-    const uiConfig = {
-      signInSuccessUrl: "/",
-      signInFlow: "popup",
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ]
-    };
-    const ui =
-      firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
-    ui.start("#firebaseui-auth-container", uiConfig);
+  beforeRouteEnter(to, from, next) {
+    next(() => {
+      const uiConfig = {
+        signInSuccessUrl: "/",
+        signInFlow: "popup",
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+      };
+      const ui =
+        firebaseui.auth.AuthUI.getInstance() ||
+        new firebaseui.auth.AuthUI(auth);
+      ui.start("#firebaseui-auth-container", uiConfig);
+    });
   }
-});
+};
 </script>
