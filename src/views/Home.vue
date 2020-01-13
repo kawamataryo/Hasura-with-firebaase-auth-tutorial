@@ -13,7 +13,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
-          <v-btn @click="deleteMemo(memo.id)">delete</v-btn>
+          <v-icon @click="deleteMemo(memo.id)">mdi-delete</v-icon>
         </v-card-actions>
       </v-card>
     </template>

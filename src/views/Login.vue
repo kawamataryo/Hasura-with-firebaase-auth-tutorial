@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is login page</h1>
+    <h2 class="text-center">Please login.</h2>
     <div id="firebaseui-auth-container"></div>
   </div>
 </template>
