@@ -6,25 +6,118 @@ schema {
     subscription: subscription_root
 }
 
+"columns and relationships of \"memos\""
+type memos {
+    content: String!
+    created_at: timestamptz!
+    id: Int!
+    user_id: String!
+}
+
+"aggregated selection of \"memos\""
+type memos_aggregate {
+    aggregate: memos_aggregate_fields
+    nodes: [memos!]!
+}
+
+"aggregate fields of \"memos\""
+type memos_aggregate_fields {
+    avg: memos_avg_fields
+    count(columns: [memos_select_column!], distinct: Boolean): Int
+    max: memos_max_fields
+    min: memos_min_fields
+    stddev: memos_stddev_fields
+    stddev_pop: memos_stddev_pop_fields
+    stddev_samp: memos_stddev_samp_fields
+    sum: memos_sum_fields
+    var_pop: memos_var_pop_fields
+    var_samp: memos_var_samp_fields
+    variance: memos_variance_fields
+}
+
+"aggregate avg on columns"
+type memos_avg_fields {
+    id: Float
+}
+
+"aggregate max on columns"
+type memos_max_fields {
+    content: String
+    created_at: timestamptz
+    id: Int
+    user_id: String
+}
+
+"aggregate min on columns"
+type memos_min_fields {
+    content: String
+    created_at: timestamptz
+    id: Int
+    user_id: String
+}
+
+"response of any mutation on the table \"memos\""
+type memos_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [memos!]!
+}
+
+"aggregate stddev on columns"
+type memos_stddev_fields {
+    id: Float
+}
+
+"aggregate stddev_pop on columns"
+type memos_stddev_pop_fields {
+    id: Float
+}
+
+"aggregate stddev_samp on columns"
+type memos_stddev_samp_fields {
+    id: Float
+}
+
+"aggregate sum on columns"
+type memos_sum_fields {
+    id: Int
+}
+
+"aggregate var_pop on columns"
+type memos_var_pop_fields {
+    id: Float
+}
+
+"aggregate var_samp on columns"
+type memos_var_samp_fields {
+    id: Float
+}
+
+"aggregate variance on columns"
+type memos_variance_fields {
+    id: Float
+}
+
 "mutation root"
 type mutation_root {
-    "delete data from the table: \"todos\""
-    delete_todos(
+    "delete data from the table: \"memos\""
+    delete_memos(
         #filter the rows which have to be deleted
-        where: todos_bool_exp!
-    ): todos_mutation_response
+        where: memos_bool_exp!
+    ): memos_mutation_response
     "delete data from the table: \"users\""
     delete_users(
         #filter the rows which have to be deleted
         where: users_bool_exp!
     ): users_mutation_response
-    "insert data into the table: \"todos\""
-    insert_todos(
+    "insert data into the table: \"memos\""
+    insert_memos(
         #the rows to be inserted
-        objects: [todos_insert_input!]!,
+        objects: [memos_insert_input!]!,
         #on conflict condition
-        on_conflict: todos_on_conflict
-    ): todos_mutation_response
+        on_conflict: memos_on_conflict
+    ): memos_mutation_response
     "insert data into the table: \"users\""
     insert_users(
         #the rows to be inserted
@@ -32,15 +125,15 @@ type mutation_root {
         #on conflict condition
         on_conflict: users_on_conflict
     ): users_mutation_response
-    "update data of the table: \"todos\""
-    update_todos(
+    "update data of the table: \"memos\""
+    update_memos(
         #increments the integer columns with given value of the filtered values
-        _inc: todos_inc_input,
+        _inc: memos_inc_input,
         #sets the columns of the filtered rows to the given values
-        _set: todos_set_input,
+        _set: memos_set_input,
         #filter the rows which have to be updated
-        where: todos_bool_exp!
-    ): todos_mutation_response
+        where: memos_bool_exp!
+    ): memos_mutation_response
     "update data of the table: \"users\""
     update_users(
         #sets the columns of the filtered rows to the given values
@@ -52,34 +145,34 @@ type mutation_root {
 
 "query root"
 type query_root {
-    "fetch data from the table: \"todos\""
-    todos(
+    "fetch data from the table: \"memos\""
+    memos(
         #distinct select on columns
-        distinct_on: [todos_select_column!],
+        distinct_on: [memos_select_column!],
         #limit the number of rows returned
         limit: Int,
         #skip the first n rows. Use only with order_by
         offset: Int,
         #sort the rows by one or more columns
-        order_by: [todos_order_by!],
+        order_by: [memos_order_by!],
         #filter the rows returned
-        where: todos_bool_exp
-    ): [todos!]!
-    "fetch aggregated fields from the table: \"todos\""
-    todos_aggregate(
+        where: memos_bool_exp
+    ): [memos!]!
+    "fetch aggregated fields from the table: \"memos\""
+    memos_aggregate(
         #distinct select on columns
-        distinct_on: [todos_select_column!],
+        distinct_on: [memos_select_column!],
         #limit the number of rows returned
         limit: Int,
         #skip the first n rows. Use only with order_by
         offset: Int,
         #sort the rows by one or more columns
-        order_by: [todos_order_by!],
+        order_by: [memos_order_by!],
         #filter the rows returned
-        where: todos_bool_exp
-    ): todos_aggregate!
-    "fetch data from the table: \"todos\" using primary key columns"
-    todos_by_pk(id: Int!): todos
+        where: memos_bool_exp
+    ): memos_aggregate!
+    "fetch data from the table: \"memos\" using primary key columns"
+    memos_by_pk(id: Int!): memos
     "fetch data from the table: \"users\""
     users(
         #distinct select on columns
@@ -112,34 +205,34 @@ type query_root {
 
 "subscription root"
 type subscription_root {
-    "fetch data from the table: \"todos\""
-    todos(
+    "fetch data from the table: \"memos\""
+    memos(
         #distinct select on columns
-        distinct_on: [todos_select_column!],
+        distinct_on: [memos_select_column!],
         #limit the number of rows returned
         limit: Int,
         #skip the first n rows. Use only with order_by
         offset: Int,
         #sort the rows by one or more columns
-        order_by: [todos_order_by!],
+        order_by: [memos_order_by!],
         #filter the rows returned
-        where: todos_bool_exp
-    ): [todos!]!
-    "fetch aggregated fields from the table: \"todos\""
-    todos_aggregate(
+        where: memos_bool_exp
+    ): [memos!]!
+    "fetch aggregated fields from the table: \"memos\""
+    memos_aggregate(
         #distinct select on columns
-        distinct_on: [todos_select_column!],
+        distinct_on: [memos_select_column!],
         #limit the number of rows returned
         limit: Int,
         #skip the first n rows. Use only with order_by
         offset: Int,
         #sort the rows by one or more columns
-        order_by: [todos_order_by!],
+        order_by: [memos_order_by!],
         #filter the rows returned
-        where: todos_bool_exp
-    ): todos_aggregate!
-    "fetch data from the table: \"todos\" using primary key columns"
-    todos_by_pk(id: Int!): todos
+        where: memos_bool_exp
+    ): memos_aggregate!
+    "fetch data from the table: \"memos\" using primary key columns"
+    memos_by_pk(id: Int!): memos
     "fetch data from the table: \"users\""
     users(
         #distinct select on columns
@@ -168,100 +261,6 @@ type subscription_root {
     ): users_aggregate!
     "fetch data from the table: \"users\" using primary key columns"
     users_by_pk(id: String!): users
-}
-
-"columns and relationships of \"todos\""
-type todos {
-    completed: Boolean!
-    created_at: timestamptz!
-    id: Int!
-    name: String!
-    user_id: String!
-}
-
-"aggregated selection of \"todos\""
-type todos_aggregate {
-    aggregate: todos_aggregate_fields
-    nodes: [todos!]!
-}
-
-"aggregate fields of \"todos\""
-type todos_aggregate_fields {
-    avg: todos_avg_fields
-    count(columns: [todos_select_column!], distinct: Boolean): Int
-    max: todos_max_fields
-    min: todos_min_fields
-    stddev: todos_stddev_fields
-    stddev_pop: todos_stddev_pop_fields
-    stddev_samp: todos_stddev_samp_fields
-    sum: todos_sum_fields
-    var_pop: todos_var_pop_fields
-    var_samp: todos_var_samp_fields
-    variance: todos_variance_fields
-}
-
-"aggregate avg on columns"
-type todos_avg_fields {
-    id: Float
-}
-
-"aggregate max on columns"
-type todos_max_fields {
-    created_at: timestamptz
-    id: Int
-    name: String
-    user_id: String
-}
-
-"aggregate min on columns"
-type todos_min_fields {
-    created_at: timestamptz
-    id: Int
-    name: String
-    user_id: String
-}
-
-"response of any mutation on the table \"todos\""
-type todos_mutation_response {
-    "number of affected rows by the mutation"
-    affected_rows: Int!
-    "data of the affected rows by the mutation"
-    returning: [todos!]!
-}
-
-"aggregate stddev on columns"
-type todos_stddev_fields {
-    id: Float
-}
-
-"aggregate stddev_pop on columns"
-type todos_stddev_pop_fields {
-    id: Float
-}
-
-"aggregate stddev_samp on columns"
-type todos_stddev_samp_fields {
-    id: Float
-}
-
-"aggregate sum on columns"
-type todos_sum_fields {
-    id: Int
-}
-
-"aggregate var_pop on columns"
-type todos_var_pop_fields {
-    id: Float
-}
-
-"aggregate var_samp on columns"
-type todos_var_samp_fields {
-    id: Float
-}
-
-"aggregate variance on columns"
-type todos_variance_fields {
-    id: Float
 }
 
 "columns and relationships of \"users\""
@@ -306,6 +305,36 @@ type users_mutation_response {
     returning: [users!]!
 }
 
+"unique or primary key constraints on table \"memos\""
+enum memos_constraint {
+    #unique or primary key constraint
+    memos_pkey
+}
+
+"select columns of table \"memos\""
+enum memos_select_column {
+    #column name
+    content
+    #column name
+    created_at
+    #column name
+    id
+    #column name
+    user_id
+}
+
+"update columns of table \"memos\""
+enum memos_update_column {
+    #column name
+    content
+    #column name
+    created_at
+    #column name
+    id
+    #column name
+    user_id
+}
+
 "column ordering options"
 enum order_by {
     #in the ascending order, nulls last
@@ -320,40 +349,6 @@ enum order_by {
     desc_nulls_first
     #in the descending order, nulls last
     desc_nulls_last
-}
-
-"unique or primary key constraints on table \"todos\""
-enum todos_constraint {
-    #unique or primary key constraint
-    todos_pkey
-}
-
-"select columns of table \"todos\""
-enum todos_select_column {
-    #column name
-    completed
-    #column name
-    created_at
-    #column name
-    id
-    #column name
-    name
-    #column name
-    user_id
-}
-
-"update columns of table \"todos\""
-enum todos_update_column {
-    #column name
-    completed
-    #column name
-    created_at
-    #column name
-    id
-    #column name
-    name
-    #column name
-    user_id
 }
 
 "unique or primary key constraints on table \"users\""
@@ -380,19 +375,6 @@ enum users_update_column {
     id
     #column name
     name
-}
-
-"expression to compare columns of type Boolean. All fields are combined with logical 'AND'."
-input Boolean_comparison_exp {
-    _eq: Boolean
-    _gt: Boolean
-    _gte: Boolean
-    _in: [Boolean!]
-    _is_null: Boolean
-    _lt: Boolean
-    _lte: Boolean
-    _neq: Boolean
-    _nin: [Boolean!]
 }
 
 "expression to compare columns of type Int. All fields are combined with logical 'AND'."
@@ -427,6 +409,136 @@ input String_comparison_exp {
     _similar: String
 }
 
+"order by aggregate values of table \"memos\""
+input memos_aggregate_order_by {
+    avg: memos_avg_order_by
+    count: order_by
+    max: memos_max_order_by
+    min: memos_min_order_by
+    stddev: memos_stddev_order_by
+    stddev_pop: memos_stddev_pop_order_by
+    stddev_samp: memos_stddev_samp_order_by
+    sum: memos_sum_order_by
+    var_pop: memos_var_pop_order_by
+    var_samp: memos_var_samp_order_by
+    variance: memos_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"memos\""
+input memos_arr_rel_insert_input {
+    data: [memos_insert_input!]!
+    on_conflict: memos_on_conflict
+}
+
+"order by avg() on columns of table \"memos\""
+input memos_avg_order_by {
+    id: order_by
+}
+
+"Boolean expression to filter rows from the table \"memos\". All fields are combined with a logical 'AND'."
+input memos_bool_exp {
+    _and: [memos_bool_exp]
+    _not: memos_bool_exp
+    _or: [memos_bool_exp]
+    content: String_comparison_exp
+    created_at: timestamptz_comparison_exp
+    id: Int_comparison_exp
+    user_id: String_comparison_exp
+}
+
+"input type for incrementing integer columne in table \"memos\""
+input memos_inc_input {
+    id: Int
+}
+
+"input type for inserting data into table \"memos\""
+input memos_insert_input {
+    content: String
+    created_at: timestamptz
+    id: Int
+    user_id: String
+}
+
+"order by max() on columns of table \"memos\""
+input memos_max_order_by {
+    content: order_by
+    created_at: order_by
+    id: order_by
+    user_id: order_by
+}
+
+"order by min() on columns of table \"memos\""
+input memos_min_order_by {
+    content: order_by
+    created_at: order_by
+    id: order_by
+    user_id: order_by
+}
+
+"input type for inserting object relation for remote table \"memos\""
+input memos_obj_rel_insert_input {
+    data: memos_insert_input!
+    on_conflict: memos_on_conflict
+}
+
+"on conflict condition type for table \"memos\""
+input memos_on_conflict {
+    constraint: memos_constraint!
+    update_columns: [memos_update_column!]!
+    where: memos_bool_exp
+}
+
+"ordering options when selecting data from \"memos\""
+input memos_order_by {
+    content: order_by
+    created_at: order_by
+    id: order_by
+    user_id: order_by
+}
+
+"input type for updating data in table \"memos\""
+input memos_set_input {
+    content: String
+    created_at: timestamptz
+    id: Int
+    user_id: String
+}
+
+"order by stddev() on columns of table \"memos\""
+input memos_stddev_order_by {
+    id: order_by
+}
+
+"order by stddev_pop() on columns of table \"memos\""
+input memos_stddev_pop_order_by {
+    id: order_by
+}
+
+"order by stddev_samp() on columns of table \"memos\""
+input memos_stddev_samp_order_by {
+    id: order_by
+}
+
+"order by sum() on columns of table \"memos\""
+input memos_sum_order_by {
+    id: order_by
+}
+
+"order by var_pop() on columns of table \"memos\""
+input memos_var_pop_order_by {
+    id: order_by
+}
+
+"order by var_samp() on columns of table \"memos\""
+input memos_var_samp_order_by {
+    id: order_by
+}
+
+"order by variance() on columns of table \"memos\""
+input memos_variance_order_by {
+    id: order_by
+}
+
 "expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
 input timestamptz_comparison_exp {
     _eq: timestamptz
@@ -438,140 +550,6 @@ input timestamptz_comparison_exp {
     _lte: timestamptz
     _neq: timestamptz
     _nin: [timestamptz!]
-}
-
-"order by aggregate values of table \"todos\""
-input todos_aggregate_order_by {
-    avg: todos_avg_order_by
-    count: order_by
-    max: todos_max_order_by
-    min: todos_min_order_by
-    stddev: todos_stddev_order_by
-    stddev_pop: todos_stddev_pop_order_by
-    stddev_samp: todos_stddev_samp_order_by
-    sum: todos_sum_order_by
-    var_pop: todos_var_pop_order_by
-    var_samp: todos_var_samp_order_by
-    variance: todos_variance_order_by
-}
-
-"input type for inserting array relation for remote table \"todos\""
-input todos_arr_rel_insert_input {
-    data: [todos_insert_input!]!
-    on_conflict: todos_on_conflict
-}
-
-"order by avg() on columns of table \"todos\""
-input todos_avg_order_by {
-    id: order_by
-}
-
-"Boolean expression to filter rows from the table \"todos\". All fields are combined with a logical 'AND'."
-input todos_bool_exp {
-    _and: [todos_bool_exp]
-    _not: todos_bool_exp
-    _or: [todos_bool_exp]
-    completed: Boolean_comparison_exp
-    created_at: timestamptz_comparison_exp
-    id: Int_comparison_exp
-    name: String_comparison_exp
-    user_id: String_comparison_exp
-}
-
-"input type for incrementing integer columne in table \"todos\""
-input todos_inc_input {
-    id: Int
-}
-
-"input type for inserting data into table \"todos\""
-input todos_insert_input {
-    completed: Boolean
-    created_at: timestamptz
-    id: Int
-    name: String
-    user_id: String
-}
-
-"order by max() on columns of table \"todos\""
-input todos_max_order_by {
-    created_at: order_by
-    id: order_by
-    name: order_by
-    user_id: order_by
-}
-
-"order by min() on columns of table \"todos\""
-input todos_min_order_by {
-    created_at: order_by
-    id: order_by
-    name: order_by
-    user_id: order_by
-}
-
-"input type for inserting object relation for remote table \"todos\""
-input todos_obj_rel_insert_input {
-    data: todos_insert_input!
-    on_conflict: todos_on_conflict
-}
-
-"on conflict condition type for table \"todos\""
-input todos_on_conflict {
-    constraint: todos_constraint!
-    update_columns: [todos_update_column!]!
-    where: todos_bool_exp
-}
-
-"ordering options when selecting data from \"todos\""
-input todos_order_by {
-    completed: order_by
-    created_at: order_by
-    id: order_by
-    name: order_by
-    user_id: order_by
-}
-
-"input type for updating data in table \"todos\""
-input todos_set_input {
-    completed: Boolean
-    created_at: timestamptz
-    id: Int
-    name: String
-    user_id: String
-}
-
-"order by stddev() on columns of table \"todos\""
-input todos_stddev_order_by {
-    id: order_by
-}
-
-"order by stddev_pop() on columns of table \"todos\""
-input todos_stddev_pop_order_by {
-    id: order_by
-}
-
-"order by stddev_samp() on columns of table \"todos\""
-input todos_stddev_samp_order_by {
-    id: order_by
-}
-
-"order by sum() on columns of table \"todos\""
-input todos_sum_order_by {
-    id: order_by
-}
-
-"order by var_pop() on columns of table \"todos\""
-input todos_var_pop_order_by {
-    id: order_by
-}
-
-"order by var_samp() on columns of table \"todos\""
-input todos_var_samp_order_by {
-    id: order_by
-}
-
-"order by variance() on columns of table \"todos\""
-input todos_variance_order_by {
-    id: order_by
 }
 
 "order by aggregate values of table \"users\""
